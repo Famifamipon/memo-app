@@ -55,3 +55,7 @@ destroy:
 ## ルーティング一覧表示
 route:
 	docker compose exec app php artisan route:list
+
+##make appでコンテナ内に入れるようにする
+app:
+	docker compose exec app bash
