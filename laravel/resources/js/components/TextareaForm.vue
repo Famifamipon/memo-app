@@ -15,7 +15,7 @@ watch(memoContent,judgeDisabled)
 </script>
 
 <template>
-    <div class="max-w-xl mx-auto border bg-white rounded-xl shadow-sm py-6 px-6 my-8">
+    <div class="max-w-xl mx-auto border bg-white rounded-xl shadow-xl py-6 px-6 my-8">
         <div class="flex gap-2 items-center mb-4">
             <PlusSvg />
             <p class="text-lg font-bold">新しいメモ</p>
