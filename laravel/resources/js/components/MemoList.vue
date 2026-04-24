@@ -14,16 +14,31 @@ const memos = ref([
         content:"mockデータ2ぴえん",
         created_time:"2026-04-24 15:59"
     },
+    {
+        id:3,
+        content:"明日バイト",
+        created_time:"2026-04-24 23:28"
+    },
+    {
+        id:4,
+        content:"女の子おとこの娘",
+        created_time:"2026-04-24 23:29"
+    },
 ])
 </script>
 
 <template>
     <div class="max-w-xl mx-auto">
-        <div class="flex gap-2 items-center mb-4">
-            <DocumentSvg class="w-6 h-6"/>
-            <p class="text-lg font-bold">保存されたメモ</p>
+        <div class="flex justify-between items-center">
+            <div class="flex gap-2 items-center mb-4">
+                <DocumentSvg class="w-6 h-6"/>
+                <p class="text-lg font-bold">保存されたメモ</p>
+            </div>
+            <span class="text-sm text-slate-500 rounded-xl bg-orange-100 px-2 mb-3">
+                {{memos.length}}件
+            </span>
         </div>
-        <div v-for="memo in memos" :key="memo.id" class="border rounded-xl shadow-sm mb-4 relative group">
+        <div v-for="memo in memos" :key="memo.id" class="bg-white border rounded-xl shadow-sm mb-4 relative group">
             <p class="m-4">{{memo.content}}</p>
             <p class="text-xs text-slate-400 mb-4 mx-4">{{memo.created_time}}</p>
 
