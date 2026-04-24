@@ -8,7 +8,7 @@ import DocumentSvg from './svgs/DocumentSvg.vue'
             <DocumentSvg class="w-10 h-10"/>
             <p class="text-orange-500 text-3xl inline-block scale-y-110">かんたんメモ</p>
         </div>
-        <div class="flex justify-center pb-6">
+        <div class="flex justify-center mb-6">
             <p class="text-xs">思いついたことをサッと記録しよう</p>
         </div>
     </header>

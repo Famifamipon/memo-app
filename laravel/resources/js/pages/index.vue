@@ -7,6 +7,8 @@ import MemoList from '../components/MemoList.vue'
 
 <template>
   <Header />
-    <TextareaForm />
-    <MemoList />
+    <main class="bg-orange-50 py-4">
+        <TextareaForm />
+        <MemoList />
+    </main>
 </template>
