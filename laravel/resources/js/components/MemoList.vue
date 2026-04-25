@@ -5,7 +5,6 @@ import DocumentSvg from './svgs/DocumentSvg.vue'
 import TrashSvg from './svgs/TrashSvg.vue'
 
 const memos = ref([])
-
 const fetchMemos = async () => {
     try {
         const response = await axios.get('/api/memos');
@@ -14,6 +13,10 @@ const fetchMemos = async () => {
         console.error("データの取得に失敗しました", error);
     }
 }
+
+defineExpose({
+    fetchMemos
+});
 
 onMounted(() => {
     fetchMemos();

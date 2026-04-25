@@ -10,6 +10,8 @@ const placeholderText = 'メモを入力してください...\n' +
 
 const isButtonDisabled = ref(true)
 
+const emit = defineEmits(['save-success'])
+
 const submitMemo = async () => {
     if (memoContent.value === "") {
         return;
@@ -22,6 +24,7 @@ const submitMemo = async () => {
 
         console.log("保存しました。内容：", response.data);
         memoContent.value = "";
+        emit('save-success');
     } catch (error){
         console.error("保存に失敗しました。", error);
         alert("メモの保存に失敗しました。");
