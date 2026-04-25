@@ -1,30 +1,24 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
+import axios from 'axios'
 import DocumentSvg from './svgs/DocumentSvg.vue'
 import TrashSvg from './svgs/TrashSvg.vue'
 
-const memos = ref([
-    {
-        id:1,
-        content:"mockデータぴえん",
-        created_time:"2005-01-24 00:00"
-    },
-    {
-        id:2,
-        content:"mockデータ2ぴえん",
-        created_time:"2026-04-24 15:59"
-    },
-    {
-        id:3,
-        content:"明日バイト",
-        created_time:"2026-04-24 23:28"
-    },
-    {
-        id:4,
-        content:"女の子おとこの娘",
-        created_time:"2026-04-24 23:29"
-    },
-])
+const memos = ref([])
+
+const fetchMemos = async () => {
+    try {
+        const response = await axios.get('/api/memos');
+        memos.value = response.data;
+    } catch(error){
+        console.error("データの取得に失敗しました", error);
+    }
+}
+
+onMounted(() => {
+    fetchMemos();
+})
+
 </script>
 
 <template>
