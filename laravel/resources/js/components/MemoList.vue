@@ -22,6 +22,17 @@ onMounted(() => {
     fetchMemos();
 })
 
+const deleteMemo = async (id) => {
+    try {
+        await axios.delete('/api/memos/' + id);
+
+        await fetchMemos();
+    } catch (error){
+        console.error("削除に失敗しました。", error);
+        alert("メモの削除に失敗しました。");
+    }
+}
+
 </script>
 
 <template>
@@ -39,7 +50,7 @@ onMounted(() => {
             <p class="m-4">{{memo.content}}</p>
             <p class="text-xs text-slate-400 mb-4 mx-4">{{memo.created_time}}</p>
 
-            <button class="absolute top-4 right-4 invisible group-hover:visible text-slate-400 p-2">
+            <button @click="deleteMemo(memo.id)" class="absolute top-4 right-4 invisible group-hover:visible text-slate-400 p-2">
                 <TrashSvg />
             </button>
         </div>

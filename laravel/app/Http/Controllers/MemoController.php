@@ -21,8 +21,17 @@ class MemoController extends Controller
     }
 
     public function index(){
-        $memos = Memo::all();
+        //$memos = Memo::all();
 
-        return response()->json($memos);
+        //return response()->json($memos);
+        return Memo::latest()->get();
+    }
+
+    public function delete($id){
+        $memo = Memo::find($id);
+
+        $memo->delete();
+
+        return response()->json([],200);
     }
 }
