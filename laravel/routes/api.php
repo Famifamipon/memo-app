@@ -7,3 +7,4 @@ Route::post('memos', [MemoController::class, 'store']);
 Route::get('memos', [MemoController::class, 'index']);
 Route::delete('memos/{id}', [MemoController::class, 'delete']);
 Route::put('memos/{id}', [MemoController::class, 'update']);
+Route::patch('memos/{id}/star', [MemoController::class, 'toggleStar']);
