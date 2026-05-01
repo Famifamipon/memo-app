@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, computed} from 'vue'
 import axios from 'axios'
 import DocumentSvg from './svgs/DocumentSvg.vue'
 import TrashSvg from './svgs/TrashSvg.vue'
@@ -62,6 +62,12 @@ const editMemo = async () => {
     }
 }
 
+const filterText = ref("")
+
+const filteredMemos = computed(() => {
+    return memos.value.filter((memo) => memo.content.includes(filterText.value))
+})
+
 </script>
 
 <template>
@@ -72,10 +78,14 @@ const editMemo = async () => {
                 <p class="text-lg font-bold">保存されたメモ</p>
             </div>
             <span class="text-sm text-slate-500 rounded-xl bg-orange-100 px-2 mb-3">
-                {{memos.length}}件
+                {{filteredMemos.length}}件
             </span>
         </div>
-        <div v-for="memo in memos" :key="memo.id" class="bg-white border rounded-xl shadow-sm mb-4 relative group">
+        <div class="mb-4">
+            <label>🔍 検索：</label>
+            <input v-model="filterText" placeholder="検索..." class="border outline-none focus:border-blue-400 rounded-lg w-64">
+        </div>
+        <div v-for="memo in filteredMemos" :key="memo.id" class="bg-white border rounded-xl shadow-sm mb-4 relative group">
             <template v-if="memo.id === editId">
                 <textarea v-model="editContent" class="resize-none border rounded-xl focus:border-blue-400 outline-none m-4 w-80"></textarea>
                 <p class="text-xs text-slate-400 mb-4 mx-4">投稿時間は編集時間に上書きされます</p>
