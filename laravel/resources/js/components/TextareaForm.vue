@@ -47,7 +47,7 @@ watch(memoContent,judgeDisabled)
         <div>
             <form @submit.prevent="submitMemo">
                 <textarea @keydown.enter.exact.prevent="submitMemo" v-model="memoContent" :placeholder="placeholderText" class="w-full border rounded-xl resize-none focus:border-blue-400 outline-none mb-4 h-32 p-4"></textarea><br/>
-                <button @click.prevent="submitMemo" :disabled="isButtonDisabled" class="border rounded-xl w-full bg-orange-500 text-white disabled:opacity-50 disabled:cursor-not-allowed py-3">＋ メモを保存</button>
+                <button @click.prevent="submitMemo" :disabled="isButtonDisabled" class="border rounded-xl w-full bg-orange-500 text-white disabled:opacity-50 disabled:cursor-not-allowed py-3 transition-all">＋ メモを保存</button>
             </form>
         </div>
     </div>
