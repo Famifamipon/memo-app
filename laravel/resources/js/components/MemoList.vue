@@ -33,6 +33,35 @@ const deleteMemo = async (id) => {
     }
 }
 
+const editId = ref(null)
+const editContent = ref("")
+
+const judgeEditId = (memo) => {
+    editId.value = memo.id;
+    editContent.value = memo.content;
+}
+
+const editMemo = async () => {
+    if (editContent.value === "") {
+        return;
+    }
+
+    try{
+        const response = await axios.put('/api/memos/' + editId.value,{
+            editContent: editContent.value
+        });
+
+        console.log("更新しました。内容：", response.data);
+        editContent.value = "";
+        editId.value = null;
+
+        await fetchMemos();
+    } catch (error){
+        console.error("更新に失敗しました。", error);
+        alert("メモの更新に失敗しました。");
+    }
+}
+
 </script>
 
 <template>
@@ -47,11 +76,23 @@ const deleteMemo = async (id) => {
             </span>
         </div>
         <div v-for="memo in memos" :key="memo.id" class="bg-white border rounded-xl shadow-sm mb-4 relative group">
-            <p class="m-4">{{memo.content}}</p>
-            <p class="text-xs text-slate-400 mb-4 mx-4">{{memo.created_time}}</p>
+            <template v-if="memo.id === editId">
+                <textarea v-model="editContent" class="m-4"></textarea>
+                <p class="text-xs text-slate-400 mb-4 mx-4">投稿時間は編集時間に上書きされます</p>
+            </template>
+            <template v-else>
+                <p class="m-4">{{memo.content}}</p>
+                <p class="text-xs text-slate-400 mb-4 mx-4">{{memo.created_time}}</p>
+            </template>
 
             <button @click="deleteMemo(memo.id)" class="absolute top-4 right-4 invisible group-hover:visible text-slate-400 p-2">
                 <TrashSvg />
+            </button>
+            <button v-if="memo.id === editId" @click="editMemo" class="absolute top-3 right-14 invisible group-hover:visible text-slate-400 p-2">
+                完了
+            </button>
+            <button v-else @click="judgeEditId(memo)" class="absolute top-3 right-14 invisible group-hover:visible text-slate-400 p-2">
+                編集
             </button>
         </div>
     </div>

@@ -34,4 +34,17 @@ class MemoController extends Controller
 
         return response()->json([],200);
     }
+
+    public function update(Request $request, $id){
+        $memo = Memo::find($id);
+
+        $memo->content = $request['editContent'];
+        $memo->created_time = Carbon::now();
+        $memo->save();
+
+        return response()->json([
+            'message' => 'Memo updated successfully',
+            'memo' => $memo
+        ], 200);
+    }
 }
