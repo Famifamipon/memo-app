@@ -9,5 +9,6 @@ class Memo extends Model
     protected $fillable = [
         'content',
         'created_time',
+        'is_starred',
     ];
 }
