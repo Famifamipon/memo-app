@@ -91,7 +91,7 @@ const filteredMemos = computed(() => {
                 <p class="text-xs text-slate-400 mb-4 mx-4">投稿時間は編集時間に上書きされます</p>
             </template>
             <template v-else>
-                <p class="m-4">{{memo.content}}</p>
+                <p class="whitespace-pre-wrap m-4">{{memo.content}}</p>
                 <p class="text-xs text-slate-400 mb-4 mx-4">{{memo.created_time}}</p>
             </template>
 
