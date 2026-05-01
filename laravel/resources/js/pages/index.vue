@@ -16,7 +16,7 @@ const MemoSaved = () => {
 
 <template>
   <Header />
-    <main class="bg-orange-50 py-4">
+    <main class="bg-orange-50 py-4 min-h-screen">
         <TextareaForm @save-success="MemoSaved" />
         <MemoList ref="memoListRef" />
     </main>
