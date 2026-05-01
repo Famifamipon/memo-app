@@ -4,6 +4,7 @@ import {ref} from 'vue'
 import Header from '../components/Header.vue'
 import TextareaForm from '../components/TextareaForm.vue'
 import MemoList from '../components/MemoList.vue'
+import Footer from '../components/Footer.vue'
 
 const memoListRef = ref();
 
@@ -20,4 +21,5 @@ const MemoSaved = () => {
         <TextareaForm @save-success="MemoSaved" />
         <MemoList ref="memoListRef" />
     </main>
+    <Footer />
 </template>
