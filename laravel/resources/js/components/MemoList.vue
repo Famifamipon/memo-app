@@ -3,6 +3,7 @@ import {ref, onMounted, computed} from 'vue'
 import axios from 'axios'
 import DocumentSvg from './svgs/DocumentSvg.vue'
 import TrashSvg from './svgs/TrashSvg.vue'
+import StarSvg from './svgs/StarSvg.vue'
 
 const memos = ref([])
 const fetchMemos = async () => {
@@ -62,6 +63,15 @@ const editMemo = async () => {
     }
 }
 
+const toggleStar = async(memo) => {
+    try{
+        await axios.patch('/api/memos/' + memo.id + '/star');
+        memo.is_starred = !memo.is_starred;
+    } catch(error){
+        console.error("更新に失敗しました。", error);
+    }
+}
+
 const filterText = ref("")
 
 const filteredMemos = computed(() => {
@@ -97,6 +107,9 @@ const filteredMemos = computed(() => {
 
             <button @click="deleteMemo(memo.id)" class="absolute top-4 right-4 invisible group-hover:visible text-slate-400 hover:text-black p-2">
                 <TrashSvg />
+            </button>
+            <button @click="toggleStar(memo)" class="absolute bottom-4 right-5">
+                <StarSvg :class="memo.is_starred ? 'text-yellow-400' : 'text-slate-300'" />
             </button>
             <button v-if="memo.id === editId" @click="editMemo" class="absolute top-3 right-14 invisible group-hover:visible rounded-xl bg-blue-300 hover:bg-blue-500 transition-all text-white p-2">
                 完了

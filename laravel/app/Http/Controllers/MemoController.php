@@ -47,4 +47,15 @@ class MemoController extends Controller
             'memo' => $memo
         ], 200);
     }
+
+    public function toggleStar($id){
+        $memo = Memo::find($id);
+
+        $memo->is_starred = !$memo->is_starred;
+        $memo->save();
+        return response()->json([
+            'message' => 'Memo updated successfully',
+            'memo' => $memo
+        ],200);
+    }
 }
