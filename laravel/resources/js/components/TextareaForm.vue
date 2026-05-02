@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {ref, watch} from 'vue'
 import PlusSvg from './svgs/PlusSvg.vue'
 import axios from 'axios'
