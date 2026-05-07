@@ -2,6 +2,7 @@
 import {ref, watch} from 'vue'
 import PlusSvg from './svgs/PlusSvg.vue'
 import axios from 'axios'
+import {useMemos} from '@/composables/useMemos.ts'
 
 const memoContent = ref("")
 
@@ -10,7 +11,7 @@ const placeholderText = 'メモを入力してください...\n' +
 
 const isButtonDisabled = ref(true)
 
-const emit = defineEmits(['save-success'])
+const { fetchMemos } = useMemos();
 
 const submitMemo = async () => {
     if (memoContent.value === "") {
@@ -24,7 +25,7 @@ const submitMemo = async () => {
 
         console.log("保存しました。内容：", response.data);
         memoContent.value = "";
-        emit('save-success');
+        await fetchMemos();
     } catch (error){
         console.error("保存に失敗しました。", error);
         alert("メモの保存に失敗しました。");

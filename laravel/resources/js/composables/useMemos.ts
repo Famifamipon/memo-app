@@ -1,11 +1,15 @@
-import {ref, computed, onMounted} from 'vue';
+import {ref, computed} from 'vue';
 import axios from 'axios';
-import {Memo} from '../types';
+import {Memo} from '@/types';
 
 const memos = ref<Memo[]>([]);
 const filterText = ref<string>("");
 const editId = ref<number | null>(null);
 const editContent = ref<string>("");
+
+function compareFunc(a: Memo, b: Memo){
+    return b.is_starred - a.is_starred;
+}
 export function useMemos(){
     const fetchMemos = async () => {
         try {
@@ -61,10 +65,6 @@ export function useMemos(){
             console.error("更新に失敗しました。", error);
         }
     };
-
-    function compareFunc(a: Memo, b: Memo){
-        return b.is_starred - a.is_starred;
-    }
 
     const filteredMemos = computed(() => {
         let result = memos.value.filter((memo) => memo.content.includes(filterText.value));
