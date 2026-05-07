@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import DocumentSvg from './svgs/DocumentSvg.vue'
 </script>
 

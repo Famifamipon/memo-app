@@ -1,86 +1,24 @@
-<script setup>
-import {ref, onMounted, computed} from 'vue'
-import axios from 'axios'
+<script setup lang="ts">
+import {onMounted} from 'vue'
 import DocumentSvg from './svgs/DocumentSvg.vue'
 import TrashSvg from './svgs/TrashSvg.vue'
 import StarSvg from './svgs/StarSvg.vue'
+import {useMemos} from '@/composables/useMemos.ts'
 
-const memos = ref([])
-const fetchMemos = async () => {
-    try {
-        const response = await axios.get('/api/memos');
-        memos.value = response.data;
-    } catch(error){
-        console.error("データの取得に失敗しました", error);
-    }
-}
-
-defineExpose({
-    fetchMemos
-});
+const {
+    fetchMemos,
+    deleteMemo,
+    editId,
+    editContent,
+    judgeEditId,
+    editMemo,
+    toggleStar,
+    filterText,
+    filteredMemos
+} = useMemos();
 
 onMounted(() => {
     fetchMemos();
-})
-
-const deleteMemo = async (id) => {
-    try {
-        await axios.delete('/api/memos/' + id);
-
-        await fetchMemos();
-    } catch (error){
-        console.error("削除に失敗しました。", error);
-        alert("メモの削除に失敗しました。");
-    }
-}
-
-const editId = ref(null)
-const editContent = ref("")
-
-const judgeEditId = (memo) => {
-    editId.value = memo.id;
-    editContent.value = memo.content;
-}
-
-const editMemo = async () => {
-    if (editContent.value === "") {
-        return;
-    }
-
-    try{
-        const response = await axios.put('/api/memos/' + editId.value,{
-            editContent: editContent.value
-        });
-
-        console.log("更新しました。内容：", response.data);
-        editContent.value = "";
-        editId.value = null;
-
-        await fetchMemos();
-    } catch (error){
-        console.error("更新に失敗しました。", error);
-        alert("メモの更新に失敗しました。");
-    }
-}
-
-const toggleStar = async(memo) => {
-    try{
-        await axios.patch('/api/memos/' + memo.id + '/star');
-        memo.is_starred = !memo.is_starred;
-    } catch(error){
-        console.error("更新に失敗しました。", error);
-    }
-}
-
-const filterText = ref("")
-
-function compareFunc(a, b){
-    return b.is_starred - a.is_starred;
-}
-
-const filteredMemos = computed(() => {
-    let result = memos.value.filter((memo) => memo.content.includes(filterText.value));
-    return result.sort(compareFunc);
 })
 
 </script>
