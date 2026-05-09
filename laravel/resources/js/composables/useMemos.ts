@@ -67,7 +67,7 @@ export function useMemos(){
     };
 
     const filteredMemos = computed(() => {
-        let result = memos.value.filter((memo) => memo.content.includes(filterText.value));
+        const result = memos.value.filter((memo) => memo.content.includes(filterText.value));
         return result.sort(compareFunc);
     });
 
